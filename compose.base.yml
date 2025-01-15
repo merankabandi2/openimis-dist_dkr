@@ -1,5 +1,5 @@
 x-api: &default-api
-  image: ghcr.io/openimis/openimis-be:${BE_TAG:-develop}
+  image: openimis-be:${BE_TAG:-main}
   environment:
     - DB_DEFAULT=${DB_DEFAULT:-postgresql}
     - DB_HOST=${DB_HOST}
@@ -19,7 +19,7 @@ x-api: &default-api
     - OPENSEARCH_PASSWORD=${OPENSEARCH_PASSWORD}
     - OPENSEARCH_HOSTS=${OPENSEARCH_HOSTS}
   volumes:
-    - photos:/openimis-be/openIMIS/images/insurees
+    - photos:/photos
   depends_on:
     db:
       condition: service_healthy
@@ -29,7 +29,7 @@ x-api: &default-api
 
 services:
   frontend:
-    image: ghcr.io/openimis/openimis-fe:${FE_TAG:-develop}
+    image: openimis-fe:${FE_TAG:-main}
     restart: always
     environment:
       - REACT_APP_API_URL=api
