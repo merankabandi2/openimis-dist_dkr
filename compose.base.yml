@@ -1,5 +1,5 @@
 x-api: &default-api
-  image: openimis-be:${BE_TAG:-main}
+  image: openimis-be-main:${BE_TAG:-latest}
   environment:
     - DB_DEFAULT=${DB_DEFAULT:-postgresql}
     - DB_HOST=${DB_HOST}
@@ -29,7 +29,7 @@ x-api: &default-api
 
 services:
   frontend:
-    image: openimis-fe:${FE_TAG:-main}
+    image: openimis-fe-main:${FE_TAG:-latest}
     restart: always
     environment:
       - REACT_APP_API_URL=api
