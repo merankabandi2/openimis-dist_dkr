@@ -6,10 +6,10 @@ include:
     - .env
     - .env.redis
     - .env.openSearch
-  - path: compose.openSearch.yml
-    env_file: 
-     - .env  
-     - .env.openSearch
+  # - path: compose.openSearch.yml
+  #   env_file: 
+  #    - .env  
+  #    - .env.openSearch
   - path: compose.cache.yml
     env_file: 
      - .env
