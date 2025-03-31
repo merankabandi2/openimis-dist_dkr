@@ -39,16 +39,19 @@ jobs:
         run: |
           cp .env.example .env
           echo 'DEMO_DATASET=true' >> .env
-          cp .env.lightning.example .env.lightning
-          docker compose  up -d db
-          source .env
-          source .env.lightning
+          sed -i 's/BE_TAG=develop/BE_TAG=coreMIS/g' .env
+          sed -i 's/FE_TAG=develop/FE_TAG=coreMIS/g' .env
+          cp .env.redis.example .env.redis
+          cp .env.openSearch.example .env.openSearch
+          cp .env.database.example .env.database
+
+          docker compose up -d db
           echo "Waiting for database to be healthy..."
-          until [ "`docker inspect -f {{.State.Health.Status}} ${PROJECT_NAME:-openimis}-db`" == "healthy" ]; do
+          DB_CONTAINER=$(docker compose ps -q db)
+          until [ "$(docker inspect -f '{{.State.Health.Status}}' $DB_CONTAINER)" == "healthy" ]; do
             sleep 2;
           done
           echo "Database is ready"
-          docker compose run -e  PGPASSWORD=${POSTGRES_PASSWORD} --rm db createdb -h db -U ${POSTGRES_USER}  ${POSTGRES_DB}
           docker compose up -d
 
       - name: Cypress run
