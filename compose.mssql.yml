@@ -1,6 +1,7 @@
 services:
   db:
     image: ghcr.io/openimis/openimis-mssql:${DB_TAG:-latest}
+    init: true
     restart: always
     environment:
       - DB_USER_PASSWORD=${DB_PASSWORD}
@@ -16,6 +17,11 @@ services:
       timeout: 5s
       retries: 5
       start_period: 100s
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
     networks:
       openimis-net:
     volumes:
@@ -25,6 +31,3 @@ services:
   ## WARNING:
     ## exposing the database port outside the openimis-net network
     ## may lead to security issue (depending on your network topology)
-    # ports:
-    #  - 1433:1433
-  
