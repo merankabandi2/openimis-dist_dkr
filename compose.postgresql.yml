@@ -1,6 +1,7 @@
 services:
   db:
     image: ghcr.io/openimis/openimis-pgsql:${DB_TAG:-latest}
+    shm_size: 4gb
     environment:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
