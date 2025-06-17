@@ -45,7 +45,7 @@ services:
       - OPENIMIS_CONF_JSON=${OPENIMIS_FE_CONF_JSON}
       - OPENSEARCH_BASIC_TOKEN=${OPENSEARCH_BASIC_TOKEN}
     networks:
-      proxy:
+      # proxy:
       openimis-net:
     depends_on:
       - backend
@@ -96,8 +96,8 @@ services:
 networks:
   openimis-net:
     name: "${PROJECT_NAME:-openimis}-net"
-  proxy:
-    external: true
+  # proxy:
+  #   external: true
 volumes:
   database:
   photos:
